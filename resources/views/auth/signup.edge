@@ -1,0 +1,39 @@
+@layout('layout/app')
+
+@section('content')
+    <section>
+        <form action="/signup" method="post">
+            <div>
+                <label for="name"></label>
+                <input type="name" name ="name" id="name">
+                @if(flashMessages.has('errors.name'))
+                     <small> {{ flashMessages.get('errors.name') }} </small>
+                @endif
+               </div>   
+                
+            <div>
+                <p><label for="email"></label></p>
+             <input type="email" name ="email" id="email">
+             @if(flashMessages.has('errors.email'))
+                     <small> {{ flashMessages.get('errors.email') }} </small>
+                @endif
+            </div>
+
+            <div>
+               <p> <label for="password"></label></p>
+                <input type="password" name ="password" id="password">
+                @if(flashMessages.has('errors.password'))
+                <small> {{ flashMessages.get('errors.password') }} </small>
+           @endif
+            </div>
+            <div>
+            <p> <label for="password_confirmation"></label></p>
+                <input type="password" name ="password_confirmation" id="password_confirmation">
+            </div>
+            <div> 
+            <p>  <input type="submit" value="Sign up"></p>
+            </div>
+        </form>
+    
+    </section>
+@endsection
