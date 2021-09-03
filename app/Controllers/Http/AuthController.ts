@@ -2,10 +2,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema,rules} from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User';
+import Mail from '@ioc:Adonis/Addons/Mail'
+import authConfig from 'Config/auth';
 //import authConfig from 'Config/auth';
 
 export default class SignupController {
-    public async index({ request, response }:HttpContextContract){
+    public async signup({ request, response }:HttpContextContract){
         const req = await request.validate({ 
             schema:schema.create({
             name: schema.string(),
@@ -28,6 +30,10 @@ export default class SignupController {
         user.email = req.email
         user.password = req.password
         await user.save();
+  // send verification email
+ 
+      user?.sendVerificationEmail()
+
         return response.redirect('/')
     }
 

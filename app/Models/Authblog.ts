@@ -13,9 +13,12 @@ export default class Authblog extends BaseModel {
   @column()
   public email: string
 
-  @column({ serializeAs: null })
+  @column()
   public password: string
 
+  @column()
+  public  email_verified_at: DateTime
+ 
   @column()
   public rememberMeToken?: string
 

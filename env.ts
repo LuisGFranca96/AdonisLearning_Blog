@@ -22,4 +22,9 @@ export default Env.rules({
 	CACHE_VIEWS: Env.schema.boolean(),
 	SESSION_DRIVER: Env.schema.string(),
 	NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
+	
+	SMTP_HOST: Env.schema.string({ format: 'host' }),       
+    SMTP_PORT: Env.schema.number(),
+    SMTP_USERNAME: Env.schema.string(),
+    SMTP_PASSWORD: Env.schema.string(),
 })

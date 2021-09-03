@@ -1,12 +1,11 @@
 @layout('layout/app')
 
 @section('content')
-    @if(auth.isAuthenticated)
-    <h1>{{auth.user.name}}</h1>
-    <form action="/logout" method="post">
-      <button type="submit">Sign out</button>
-     </form>
-     @else
-     <a href="/login">Login</a>
-     @endif
+  Profile
+  {{ auth.user.name }}
+@if(auth.user.email_veried_at === null)
+  <form action="/verify-email" method="post">
+    <input type="submit" value="Resend">
+  </form>
+  @endif
 @endsection
