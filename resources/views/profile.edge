@@ -1,0 +1,55 @@
+@layout('layout/app')
+
+@section('content')
+  <div class="mt-10 justify-between flex flex-wrap w-full">
+    
+    <div class="w-4/12 flex justify-center">
+      <img src="{{ user.avatar }}" class="w-32 h-32 rounded-full border" alt="">
+    </div>
+    <div class="w-8/12">
+      <div class="flex">
+        <h1 class="text-2xl tracking-wide">{{ user.name }}</h1>
+        @if(auth.user.id === user.id)
+        <a href="/accounts/edit" class="border border-gray-400 mx-2 rounded px-2
+        py-1 font-semibold text-sm">Edit Profile</a>
+        @else
+
+           @if(auth.user.followings.map(f => f.followingId).includes(user.id))
+              <form action="{{`/follow/${user.id}?_method=delete`}}" method="post">
+              <button type="submit" class=" bg-blue-500 mx-4 rounded px-3
+              py-1 my-2 font-semibold text-white text-sm">Unfollow</button>
+              </form>
+              @else
+              <form action="{{`/follow/${user.id}`}}" method="post">
+                <button type="submit" class=" bg-blue-500 mx-4 rounded px-3
+                py-1 my-2 font-semibold text-white text-sm">Follow</button>
+                </form>
+            @endif
+
+        @endif
+      </div>
+
+      <div clas="my-5">
+        <p class="jutify-flex mr-8">
+            <span class="font-semibold px-2 text-sm">{{user.posts.length}} posts </span>
+            <span class="font-semibold px-2 text-sm"> {{ follower }} followers</span> 
+            <span class="font-semibold px-2 text-sm"> {{user.followings.length}} following</span>  
+        </p>
+        @if(user.details)
+        <p class="mx-1 py-5"><span class="font-semibold">{{ user.details }}</span></p>
+        @endif
+      </div>
+    </div>
+
+    <section class="border-t w-full mt-20">
+      <h2 class="text-center py-3">POSTS 
+        <a href="/posts/create"><i class="fas fa-plus"></i></a> 
+      </h2>
+      <article class="grid grid-cols-3 gap-2 px-10">
+        @each(post in user.posts)
+          <img src="{{post.image}}" class="box-content	lg:w-60 lg:h-60 sm:w-32 sm:h-32 " alt="">
+        @endeach
+      </article>
+    </section>
+  </div>
+@endsection

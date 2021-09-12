@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog Imagem</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+    <body class="bg-gray-100">
+    <nav class="w-full bg-white shadow-md border flex justify-center px-4 py-2">
+        <div class="w-1/2 flex justify-between">
+            <h1 class="text-xl font-semibold">
+                <a href="/">Corno's</a>
+            </h1>
+                 @if(auth.isAuthenticated && auth.user.email_verified_at === null)
+                <form class="flex justify-center"action="/verify-email" method="post">
+                    <button class="bg-white text-blue-500 px-2 py-1" type="submit" value="">Resend e-mail verification</button>
+                </form>
+                @endif
+                @if(auth.isAuthenticated)
+                            <!-- This example requires Tailwind CSS v2.0+ -->
+                    <div class="relative inline-block text-left">
+                        <div >
+                        <button id="dropdown" type="button" class="inline-flex justify-center w-full border-gray-300  px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100"   aria-expanded="true" aria-haspopup="true">
+                            
+                                @if(auth.isAuthenticated)
+                                <img src="{{auth.user.avatar}}" class="h-8 w-9 rounded-full border" alt="profile">
+                                @endif
+                            <!-- Heroicon name: solid/chevron-down -->
+                        </button>
+                        </div>
+                    
+                        <!--
+                        Dropdown menu, show/hide based on menu state.
+                    
+                        Entering: "transition ease-out duration-100"
+                            From: "transform opacity-0 scale-95"
+                            To: "transform opacity-100 scale-100"
+                        Leaving: "transition ease-in duration-75"
+                            From: "transform opacity-100 scale-100"
+                            To: "transform opacity-0 scale-95"
+                        -->
+                        <div id="dropdown-items" class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                        <div class="py-1" role="none">
+                            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                            
+                            <a href="/{{auth.user.username}}" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-0">Profile</a>
+                           
+                            <form method="POST" action="/logout" role="none">
+                            <button type="submit" class="text-gray-700 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100" role="menuitem" tabindex="-1" id="menu-item-3">
+                                Sign out
+                            </button>
+                            </form>
+                        </div>
+                        </div>
+                </div>
+                @endif
+              
+         </div>
+    </nav>
+
+
+        <div class="bg-gray-100 min-h-screen flex justify-center">
+            <div class="w-full md:w-1/2">
+            @section('content')
+            @endsection
+            </div>
+        </div>
+        <script>
+            const dropdown = document.getElementById('dropdown')
+            const item = document.getElementById('dropdown-items')
+
+            dropdown.addEventListener('click',() =>{
+                if(item.classList.contains('hidden')){
+                    item.classList.remove('hidden')
+                }else{
+                item.classList.add('hidden')
+                }
+            })
+        </script>
+    </body>
+</html>

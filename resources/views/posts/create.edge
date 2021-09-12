@@ -1,0 +1,26 @@
+@layout('layout/app')
+
+ 
+
+@section('content')
+<div class="mt-20 bg-white border rounded p-5">
+    <form class="" action="/posts/create" method="post" enctype="multipart/form-data">
+        <h1 class="text-center text-2xl my-4">Create New Post</h1>
+
+        <div class="">
+            <p class="my-2">Caption</p>
+            <textarea class="border w-full" type="text" name="caption" rows="4"
+            placeholder="Post a Legend in here"></textarea>
+        </div>
+
+        <div class="my-5">
+            <p class="my-2">Upload Post</p>
+            <input class="w-full" type="file" name="image" id="">
+        </div>
+
+        <div>
+            <input  class ="px-2 py-1 bg-blue-500 text-white border rounded" type="submit" value="Upload">
+        </div>
+    </form>
+</div>
+@endsection
